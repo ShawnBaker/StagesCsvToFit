@@ -1,0 +1,101 @@
+﻿<!-- Copyright © 2019 Shawn Baker using the MIT License. -->
+<Window x:Class="StagesCsvToFit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:p="clr-namespace:StagesCsvToFit.Properties"
+        mc:Ignorable="d"
+		Title="{x:Static p:Resources.AppName}"
+		WindowStartupLocation="CenterScreen"
+		ResizeMode="CanMinimize"
+		SizeToContent="Height"
+        Width="600">
+	<Grid Margin="5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Row="0" Grid.Column="0" Margin="0,10,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Resources.FileName}"/>
+			<TextBox Name="FileNameTextBox" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Margin="5,0" VerticalAlignment="Center"/>
+			<Button Grid.Row="0" Grid.Column="2" Width="20" Content="..." HorizontalContentAlignment="Center" VerticalAlignment="Center" Click="OpenFileButton_Click"/>
+		</Grid>
+		<Grid Grid.Row="1" Grid.Column="0" Margin="5,5,5,0" HorizontalAlignment="Center">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0" Margin="5">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="80"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Resources.Records}"/>
+				<Label Grid.Row="0" Grid.Column="1" Name="NumRecordsLabel" Content="0"/>
+				<Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Resources.Laps}"/>
+				<Label Grid.Row="1" Grid.Column="1" Name="NumLapsLabel" Content="0"/>
+				<Label Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.Date}"/>
+				<Label Grid.Row="2" Grid.Column="1" Name="StartDateLabel" Content="0"/>
+				<Label Grid.Row="3" Grid.Column="0" Content="{x:Static p:Resources.Time}"/>
+				<Label Grid.Row="3" Grid.Column="1" Name="StartTimeLabel" Content="0"/>
+				<Label Grid.Row="4" Grid.Column="0" Content="{x:Static p:Resources.Duration}"/>
+				<Label Grid.Row="4" Grid.Column="1" Name="ElapsedTimeLabel" Content="0"/>
+			</Grid>
+			<Grid Grid.Column="1" Margin="40,0,0,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Resources.Cadence}"/>
+				<Label Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.HeartRate}"/>
+				<Label Grid.Row="3" Grid.Column="0" Content="{x:Static p:Resources.Power}"/>
+				<Label Grid.Row="4" Grid.Column="0" Content="{x:Static p:Resources.Speed}"/>
+				<Label Grid.Row="0" Grid.Column="1" Content="{x:Static p:Resources.Average}"/>
+				<Label Grid.Row="0" Grid.Column="2" Content="{x:Static p:Resources.Maximum}"/>
+				<Label Name="AveCadenceLabel" Grid.Row="1" Grid.Column="1" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="AveHeartRateLabel" Grid.Row="2" Grid.Column="1" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="AvePowerLabel" Grid.Row="3" Grid.Column="1" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="AveSpeedLabel" Grid.Row="4" Grid.Column="1" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="MaxCadenceLabel" Grid.Row="1" Grid.Column="2" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="MaxHeartRateLabel" Grid.Row="2" Grid.Column="2" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="MaxPowerLabel" Grid.Row="3" Grid.Column="2" Content="0" HorizontalAlignment="Center"/>
+				<Label Name="MaxSpeedLabel" Grid.Row="4" Grid.Column="2" Content="0" HorizontalAlignment="Center"/>
+			</Grid>
+		</Grid>
+		<Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Width="20" Content="?" Click="AboutButton_Click"/>
+	</Grid>
+</Window>
