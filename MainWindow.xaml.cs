@@ -79,6 +79,10 @@ namespace StagesCsvToFit
 				string[] textLines = System.IO.File.ReadAllLines(csvFileName);
 
 				// convert the CSV lines into FIT records and laps
+				int skipped = 0;
+				int removed = 0;
+				bool gotTotals = false;
+				int rideCalories = 0;
 				for (int i = 0; i < textLines.Length; i++)
 				{
 					string line = textLines[i];
@@ -89,6 +93,24 @@ namespace StagesCsvToFit
 							lap = new Lap();
 							laps.Add(lap);
 						}
+						else if (line.StartsWith("Ride_Totals"))
+						{
+							gotTotals = true;
+						}
+						else if (line.StartsWith("KCal,"))
+						{
+							if (int.TryParse(line.Substring(5), out int calories))
+							{
+								if (gotTotals)
+								{
+									rideCalories = calories;
+								}
+								else if (laps.Count > 1)
+								{
+									laps[laps.Count - 2].Calories = calories;
+								}
+							}
+						}
 						continue;
 					}
 					Record record = new Record(line, start);
@@ -96,12 +118,36 @@ namespace StagesCsvToFit
 					{
 						lap.Records.Add(record);
 					}
+					else
+					{
+						skipped++;
+					}
+				}
+
+				// remove the last lap if it's empty
+				Lap lastLap = laps[laps.Count - 1];
+				if (lastLap.Records.Count == 0 && laps.Count > 1)
+				{
+					laps.Remove(lastLap);
+					lastLap = laps[laps.Count - 1];
+				}
+
+				// fix up the calorie values
+				int sumCalories = 0;
+				foreach (Lap l in laps)
+				{
+					sumCalories += l.Calories;
+				}
+				if (rideCalories == 0)
+				{
+					rideCalories = sumCalories;
+				}
+				if (lastLap.Calories == 0)
+				{
+					lastLap.Calories = rideCalories - sumCalories;
 				}
 
 				// remove trailing rundown records from the last lap
-				Lap firstLap = laps[0];
-				Record firstRecord = firstLap.Records[0];
-				Lap lastLap = laps[laps.Count - 1];
 				Record lastRecord = lastLap.Records[lastLap.Records.Count - 1];
 				Summary lapSummary = GetLapSummary(lastLap);
 				double speedThreshold = lapSummary.AveSpeed * 0.6;
@@ -112,12 +158,17 @@ namespace StagesCsvToFit
 				}
 				if (j != lastLap.Records.Count - 1)
 				{
-					lastLap.Records.RemoveRange(j + 1, lastLap.Records.Count - j - 1);
+					int count = lastLap.Records.Count - j - 1;
+					lastLap.Records.RemoveRange(j + 1, count);
+					removed += count;
 				}
 
 				// display a summary of the file
+				Record firstRecord = laps[0].Records[0];
 				Summary sessionSummary = GetSessionSummary(laps);
 				NumRecordsLabel.Content = sessionSummary.NumRecords.ToString();
+				NumSkippedLabel.Content = skipped.ToString();
+				NumRemovedLabel.Content = removed.ToString();
 				NumLapsLabel.Content = laps.Count.ToString();
 				System.DateTime startTime = firstRecord.Time.ToLocalTime();
 				StartDateLabel.Content = startTime.ToString("yyyy/MM/dd");
@@ -133,7 +184,7 @@ namespace StagesCsvToFit
 				MaxSpeedLabel.Content = sessionSummary.MaxSpeed.ToString("0.##");
 
 				// write the data to a FIT file
-				EncodeActivityFile(fitFileName, start, laps);
+				WriteFitFile(fitFileName, start, laps, rideCalories);
 			}
 		}
 
@@ -153,7 +204,8 @@ namespace StagesCsvToFit
 		/// <param name="fileName">Name of the FIT file to write to.</param>
 		/// <param name="start">Start date/time of the activity.</param>
 		/// <param name="laps">Lap and record data to be written.</param>
-		static void EncodeActivityFile(string fileName, System.DateTime start, LapsList laps)
+		/// <param name="calories">Calories used for the activity.</param>
+		static void WriteFitFile(string fileName, System.DateTime start, LapsList laps, int calories)
 		{
 			// open the encoder and stream
 			Encode encoder = new Encode(ProtocolVersion.V20);
@@ -168,16 +220,7 @@ namespace StagesCsvToFit
 			fileIdMsg.SetSerialNumber(1234);
 			fileIdMsg.SetTimeCreated(new Dynastream.Fit.DateTime(start));
 			encoder.Write(fileIdMsg);
-			/*
-			// write the device ID message
-			DeviceInfoMesg deviceInfoMsg = new DeviceInfoMesg();
-			deviceInfoMsg.SetTimestamp(new Dynastream.Fit.DateTime(start));
-			deviceInfoMsg.SetManufacturer(Manufacturer.StagesCycling);
-			deviceInfoMsg.SetProduct(22);
-			deviceInfoMsg.SetSerialNumber(1234);
-			//deviceInfoMsg.SetDeviceType();
-			encoder.Write(deviceInfoMsg);
-			*/
+
 			// write the record and lap messages
 			foreach (Lap lap in laps)
 			{
@@ -204,6 +247,7 @@ namespace StagesCsvToFit
 				lapMsg.SetTotalElapsedTime((int)time.TotalSeconds);
 				lapMsg.SetTotalTimerTime((int)time.TotalSeconds);
 				lapMsg.SetTotalDistance((float)(last.Distance - first.Distance) * 1000);
+				lapMsg.SetTotalCalories((ushort)lap.Calories);
 				lapMsg.SetEvent(Event.Lap);
 				lapMsg.SetEventType(EventType.Stop);
 				lapMsg.SetIntensity(Intensity.Active);
@@ -221,9 +265,8 @@ namespace StagesCsvToFit
 				encoder.Write(lapMsg);
 			}
 
-			// get the first and last laps and records
-			Lap firstLap = laps[0];
-			Record firstRecord = firstLap.Records[0];
+			// get the first and last records
+			Record firstRecord = laps[0].Records[0];
 			Lap lastLap = laps[laps.Count - 1];
 			Record lastRecord = lastLap.Records[lastLap.Records.Count - 1];
 			TimeSpan totalTime = lastRecord.Time - firstRecord.Time;
@@ -235,6 +278,7 @@ namespace StagesCsvToFit
 			sessionMsg.SetTotalElapsedTime((int)totalTime.TotalSeconds);
 			sessionMsg.SetTotalTimerTime((int)totalTime.TotalSeconds);
 			sessionMsg.SetTotalDistance((float)(lastRecord.Distance - firstRecord.Distance) * 1000);
+			sessionMsg.SetTotalCalories((ushort)calories);
 			sessionMsg.SetFirstLapIndex(0);
 			sessionMsg.SetNumLaps((ushort)laps.Count);
 			sessionMsg.SetEvent(Event.Session);
@@ -394,6 +438,7 @@ namespace StagesCsvToFit
 		private class Lap
 		{
 			public RecordsList Records = new RecordsList();
+			public int Calories = 0;
 		}
 
 		private class LapsList : List<Lap> { }

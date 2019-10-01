@@ -162,6 +162,12 @@
   <data name="Records" xml:space="preserve">
     <value>Records</value>
   </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="Skipped" xml:space="preserve">
+    <value>Skipped</value>
+  </data>
   <data name="Speed" xml:space="preserve">
     <value>Speed</value>
   </data>

@@ -11,39 +11,31 @@
 		ResizeMode="CanMinimize"
 		SizeToContent="Height"
         Width="600">
-	<Grid Margin="5">
+	<Grid Margin="10,10,10,20">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<Grid Grid.Row="0" Grid.Column="0" Margin="0,10,0,0">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Grid.Column="0" Margin="0,10,5,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Resources.FileName}"/>
-			<TextBox Name="FileNameTextBox" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Margin="5,0" VerticalAlignment="Center"/>
-			<Button Grid.Row="0" Grid.Column="2" Width="20" Content="..." HorizontalContentAlignment="Center" VerticalAlignment="Center" Click="OpenFileButton_Click"/>
+			<Label Content="{x:Static p:Resources.FileName}"/>
+			<TextBox Grid.Column="1" Name="FileNameTextBox" IsReadOnly="True" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			<Button Grid.Column="2" Width="20" Height="20" Margin="5,0,0,0" Content="..." Click="OpenFileButton_Click"/>
+			<Button Grid.Column="3" Width="20" Height="20" Margin="5,0,0,0" Content="?" Click="AboutButton_Click"/>
 		</Grid>
-		<Grid Grid.Row="1" Grid.Column="0" Margin="5,5,5,0" HorizontalAlignment="Center">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
+		<Grid Grid.Row="1" Grid.Column="0" Margin="5,15,5,0" HorizontalAlignment="Center">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 			<Grid Grid.Column="0" Margin="5">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
@@ -56,16 +48,32 @@
 				</Grid.ColumnDefinitions>
 				<Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Resources.Records}"/>
 				<Label Grid.Row="0" Grid.Column="1" Name="NumRecordsLabel" Content="0"/>
-				<Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Resources.Laps}"/>
-				<Label Grid.Row="1" Grid.Column="1" Name="NumLapsLabel" Content="0"/>
-				<Label Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.Date}"/>
-				<Label Grid.Row="2" Grid.Column="1" Name="StartDateLabel" Content="0"/>
-				<Label Grid.Row="3" Grid.Column="0" Content="{x:Static p:Resources.Time}"/>
-				<Label Grid.Row="3" Grid.Column="1" Name="StartTimeLabel" Content="0"/>
-				<Label Grid.Row="4" Grid.Column="0" Content="{x:Static p:Resources.Duration}"/>
-				<Label Grid.Row="4" Grid.Column="1" Name="ElapsedTimeLabel" Content="0"/>
+				<Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Resources.Skipped}"/>
+				<Label Grid.Row="1" Grid.Column="1" Name="NumSkippedLabel" Content="0"/>
+				<Label Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.Removed}"/>
+				<Label Grid.Row="2" Grid.Column="1" Name="NumRemovedLabel" Content="0"/>
+				<Label Grid.Row="3" Grid.Column="0" Content="{x:Static p:Resources.Laps}"/>
+				<Label Grid.Row="3" Grid.Column="1" Name="NumLapsLabel" Content="0"/>
 			</Grid>
-			<Grid Grid.Column="1" Margin="40,0,0,0">
+			<Grid Grid.Column="1" Margin="5">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="80"/>
+				</Grid.ColumnDefinitions>
+				<Label Grid.Row="0" Grid.Column="0" Content="{x:Static p:Resources.Date}"/>
+				<Label Grid.Row="0" Grid.Column="1" Name="StartDateLabel" Content="0"/>
+				<Label Grid.Row="1" Grid.Column="0" Content="{x:Static p:Resources.Time}"/>
+				<Label Grid.Row="1" Grid.Column="1" Name="StartTimeLabel" Content="0"/>
+				<Label Grid.Row="2" Grid.Column="0" Content="{x:Static p:Resources.Duration}"/>
+				<Label Grid.Row="2" Grid.Column="1" Name="ElapsedTimeLabel" Content="0"/>
+			</Grid>
+			<Grid Grid.Column="2" Margin="40,0,0,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
@@ -96,6 +104,5 @@
 				<Label Name="MaxSpeedLabel" Grid.Row="4" Grid.Column="2" Content="0" HorizontalAlignment="Center"/>
 			</Grid>
 		</Grid>
-		<Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Width="20" Content="?" Click="AboutButton_Click"/>
 	</Grid>
 </Window>
