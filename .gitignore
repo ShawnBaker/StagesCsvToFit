@@ -171,6 +171,7 @@ DocProject/Help/html
 
 # Click-Once directory
 !publish/
+!publish/setup.exe
 
 # Publish Web Output
 *.[Pp]ublish.xml
