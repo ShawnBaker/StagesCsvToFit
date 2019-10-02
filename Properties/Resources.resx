@@ -138,17 +138,29 @@
   <data name="FileName" xml:space="preserve">
     <value>File Name</value>
   </data>
+  <data name="GithubLink" xml:space="preserve">
+    <value>https://github.com/ShawnBaker/StagesCsvToFit</value>
+  </data>
   <data name="GithubMIT" xml:space="preserve">
     <value>It's available on github under the MIT License.</value>
   </data>
   <data name="HeartRate" xml:space="preserve">
     <value>Heart Rate</value>
   </data>
+  <data name="Icons8" xml:space="preserve">
+    <value>Uses free images from icons8.</value>
+  </data>
+  <data name="Icons8Link" xml:space="preserve">
+    <value>https://icons8.com</value>
+  </data>
   <data name="Laps" xml:space="preserve">
     <value>Laps</value>
   </data>
   <data name="Maximum" xml:space="preserve">
     <value>Maximum</value>
+  </data>
+  <data name="MITLink" xml:space="preserve">
+    <value>https://opensource.org/licenses/MIT</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>

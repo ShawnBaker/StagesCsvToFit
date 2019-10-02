@@ -9,17 +9,25 @@
         Title="{x:Static p:Resources.About}"
 		WindowStartupLocation="CenterOwner"
 		ResizeMode="NoResize"
-		SizeToContent="WidthAndHeight">
+		SizeToContent="WidthAndHeight"
+		Icon="Images/spinning.ico">
 	<Grid Margin="20">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<StackPanel Orientation="Vertical">
-			<TextBlock Text="{x:Static p:Resources.AppName}" HorizontalAlignment="Center" FontWeight="Bold"/>
-			<TextBlock Name="VersionTextBlock" HorizontalAlignment="Center"/>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Image Source="Images/spinning-32.png" HorizontalAlignment="Left" Stretch="None"/>
+			<StackPanel Grid.Column="1" Orientation="Vertical">
+				<TextBlock Text="{x:Static p:Resources.AppName}" Margin="20,0,0,0" HorizontalAlignment="Left" FontWeight="Bold"/>
+				<TextBlock Name="VersionTextBlock" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+			</StackPanel>
+		</Grid>
+		<StackPanel Grid.Row="1" Orientation="Vertical">
 			<TextBlock Name="CopyrightTextBlock" Grid.Row="1" Margin="0,15,0,0" TextWrapping="NoWrap" HorizontalAlignment="Left"/>
 			<TextBlock Name="OpenSourceTextBlock" Grid.Row="2" Margin="0,15,0,0" TextWrapping="NoWrap" HorizontalAlignment="Left"/>
 			<Button Grid.Row="3" Margin="0,16,0,0" HorizontalAlignment="Center" Width="75" Content="{x:Static p:Resources.OK}" Click="OKButton_Click"/>

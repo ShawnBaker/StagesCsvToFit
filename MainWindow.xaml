@@ -10,7 +10,8 @@
 		WindowStartupLocation="CenterScreen"
 		ResizeMode="CanMinimize"
 		SizeToContent="Height"
-        Width="600">
+        Width="600"
+		Icon="Images/spinning.ico">
 	<Grid Margin="10,10,10,20">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>

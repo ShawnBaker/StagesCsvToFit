@@ -41,10 +41,10 @@ namespace StagesCsvToFit
 			OpenSourceTextBlock.Inlines.Clear();
 			OpenSourceTextBlock.Inlines.Add(new Run() { Text = Properties.Resources.OpenSource });
 			OpenSourceTextBlock.Inlines.Add(new LineBreak());
-			Hyperlink github = new Hyperlink() { NavigateUri = new Uri(@"https://github.com/ShawnBaker/StagesCsvToFit") };
+			Hyperlink github = new Hyperlink() { NavigateUri = new Uri(Properties.Resources.GithubLink) };
 			github.RequestNavigate += RequestNavigate;
 			github.Inlines.Add(new Run() { Text = "github" });
-			Hyperlink mit = new Hyperlink() { NavigateUri = new Uri(@"https://opensource.org/licenses/MIT") };
+			Hyperlink mit = new Hyperlink() { NavigateUri = new Uri(Properties.Resources.MITLink) };
 			mit.RequestNavigate += RequestNavigate;
 			mit.Inlines.Add(new Run() { Text = "MIT" });
 			string message = Properties.Resources.GithubMIT;
@@ -68,6 +68,22 @@ namespace StagesCsvToFit
 			}
 			OpenSourceTextBlock.Inlines.Add(mitFirst ? github : mit);
 			index += mitFirst ? 6 : 3;
+			if (index < message.Length)
+			{
+				OpenSourceTextBlock.Inlines.Add(new Run() { Text = message.Substring(index) });
+			}
+			OpenSourceTextBlock.Inlines.Add(new LineBreak());
+			message = Properties.Resources.Icons8;
+			Hyperlink icons8 = new Hyperlink() { NavigateUri = new Uri(Properties.Resources.Icons8Link) };
+			icons8.RequestNavigate += RequestNavigate;
+			icons8.Inlines.Add(new Run() { Text = "icons8" });
+			int icons8Index = message.IndexOf("icons8");
+			if (icons8Index != 0)
+			{
+				OpenSourceTextBlock.Inlines.Add(new Run() { Text = message.Substring(0, icons8Index) });
+			}
+			OpenSourceTextBlock.Inlines.Add(icons8);
+			index = icons8Index + 6;
 			if (index < message.Length)
 			{
 				OpenSourceTextBlock.Inlines.Add(new Run() { Text = message.Substring(index) });

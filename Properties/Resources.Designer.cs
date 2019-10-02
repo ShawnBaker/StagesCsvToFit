@@ -124,6 +124,15 @@ namespace StagesCsvToFit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://github.com/ShawnBaker/StagesCsvToFit.
+        /// </summary>
+        public static string GithubLink {
+            get {
+                return ResourceManager.GetString("GithubLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It&apos;s available on github under the MIT License..
         /// </summary>
         public static string GithubMIT {
@@ -142,6 +151,24 @@ namespace StagesCsvToFit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uses free images from icons8..
+        /// </summary>
+        public static string Icons8 {
+            get {
+                return ResourceManager.GetString("Icons8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://icons8.com.
+        /// </summary>
+        public static string Icons8Link {
+            get {
+                return ResourceManager.GetString("Icons8Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Laps.
         /// </summary>
         public static string Laps {
@@ -156,6 +183,15 @@ namespace StagesCsvToFit.Properties {
         public static string Maximum {
             get {
                 return ResourceManager.GetString("Maximum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://opensource.org/licenses/MIT.
+        /// </summary>
+        public static string MITLink {
+            get {
+                return ResourceManager.GetString("MITLink", resourceCulture);
             }
         }
         
