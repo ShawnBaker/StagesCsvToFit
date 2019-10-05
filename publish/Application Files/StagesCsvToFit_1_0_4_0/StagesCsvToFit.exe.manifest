@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="StagesCsvToFit.exe" version="1.0.4.0" publicKeyToken="580bd55ec5a4c048" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Images\spinning.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="StagesCsvToFit" version="1.0.4.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="StagesCsvToFit.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Fit.dll" size="510976">
+      <assemblyIdentity name="Fit" version="1.0.0.33967" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>5kPGl7E/I69q9udRGCLXNTKJk3aAz24Xhq4YcW7aTjY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StagesCsvToFit.exe" size="78264">
+      <assemblyIdentity name="StagesCsvToFit" version="1.0.4.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>g3xFaKtFiHzPUcr9kvGLAE93zhLG9BQR0QtU9AMHom0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Images\spinning.ico" size="22382">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>kMLT72cmR7tCBvu5N3bFBe2n3ttrXofZkWpdNOYx6Gs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="StagesCsvToFit.exe.config" size="932">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ELH008jbV2fZhsryqLHp41/k+cPiwOgY13CnGFQ3GZs=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=SNOWBALL\shawn" issuerKeyHash="6bdf92dfed543676ea4f572fdcc2acd39ee2a954" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>Me7C6tgOVufxN4G8B6yI3lHpLSQeWmZeHETuyVaasg4=</DigestValue></Reference></SignedInfo><SignatureValue>XZXLtDcNV7EPaZ/kHtNl6xc3WSvMpNn54oedFuM2ynJGzmjgCiPbMqrvMargU7dcqyu4eAWeCG4auJi/M/ZPXgXHTpSwyan4cAJ6je4+3lF/Z34k1QNsa44H2/6zkZXSDqVPRxJWSRxC2Xzc1TKdnsuuRRETjTlMF65WC6vgs8M=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>uTpH6rf7sBqPw0cpQ/msUeE3fuF9ORASYecnR/IgEqUH3udNbaHVFMAmw9iGuer6elw54AcGmXVoUfIBgxUucNEzCHakbJeSUJJFRnK6GNFsgXsx9ivOISfnOvKYH3WBeHR7iqEAC9tfnxNbgb9dsSGmjMRSM1Rpi0eg08hMeQU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="0eb29a56c9ee441c5e665a1e242de951de88ac07bc8137f1e7560ed8eac2ee31" Description="" Url=""><as:assemblyIdentity name="StagesCsvToFit.exe" version="1.0.4.0" publicKeyToken="580bd55ec5a4c048" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=SNOWBALL\shawn</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>m5h1hGqmDswpY5/Nt3DsqT23mQf/7fkxZEt8DtHQg08=</DigestValue></Reference></SignedInfo><SignatureValue>Ibm+BM1rvqxfnNLQsmRtWJoaUXC2cXc6di330oegbGH9QrztM6kW3RXG92mE2A7mmCe/v0m3MfH+k8hF8kG2JcDbz5aFM1snjWzwMFLAJFhev6Jf511OJnjbO8kqi7wN1xfaIwctcYgQtIdZQaDD9qh9GOrmYFmlepYUEF+FNxU=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>uTpH6rf7sBqPw0cpQ/msUeE3fuF9ORASYecnR/IgEqUH3udNbaHVFMAmw9iGuer6elw54AcGmXVoUfIBgxUucNEzCHakbJeSUJJFRnK6GNFsgXsx9ivOISfnOvKYH3WBeHR7iqEAC9tfnxNbgb9dsSGmjMRSM1Rpi0eg08hMeQU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB0TCCATqgAwIBAgIQKF0L29VgCqZAKsQwNbgbbDANBgkqhkiG9w0BAQsFADAnMSUwIwYDVQQDHhwAUwBOAE8AVwBCAEEATABMAFwAcwBoAGEAdwBuMB4XDTE5MTAwMTIyMDAyMVoXDTIwMTAwMTA0MDAyMVowJzElMCMGA1UEAx4cAFMATgBPAFcAQgBBAEwATABcAHMAaABhAHcAbjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuTpH6rf7sBqPw0cpQ/msUeE3fuF9ORASYecnR/IgEqUH3udNbaHVFMAmw9iGuer6elw54AcGmXVoUfIBgxUucNEzCHakbJeSUJJFRnK6GNFsgXsx9ivOISfnOvKYH3WBeHR7iqEAC9tfnxNbgb9dsSGmjMRSM1Rpi0eg08hMeQUCAwEAATANBgkqhkiG9w0BAQsFAAOBgQAMa/+JdezxEMo/x8J1KU2dNLprXJIiaqM40mMY4om5CPCpZZ+FM1Wh0CVq1+ZC8yVubrL4Me18IFMcutgvd7fOYIt8gEPvqqeDCTNF8vYkcmhe1qXyuFCbWC9trUDYSkxn8que2eodOg0N87nhUIOVjQIwpNMN6B9SWfeBc3dV6w==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
