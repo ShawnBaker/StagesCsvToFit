@@ -83,6 +83,7 @@ namespace StagesCsvToFit
 				int removed = 0;
 				bool gotTotals = false;
 				int rideCalories = 0;
+				uint rideWork = 0;
 				for (int i = 0; i < textLines.Length; i++)
 				{
 					string line = textLines[i];
@@ -111,6 +112,20 @@ namespace StagesCsvToFit
 								}
 							}
 						}
+						else if (line.StartsWith("KJ,"))
+						{
+							if (uint.TryParse(line.Substring(3), out uint work))
+							{
+								if (gotTotals)
+								{
+									rideWork = work;
+								}
+								else if (laps.Count > 1)
+								{
+									laps[laps.Count - 2].Work = work;
+								}
+							}
+						}
 						continue;
 					}
 					Record record = new Record(line, start);
@@ -134,9 +149,11 @@ namespace StagesCsvToFit
 
 				// fix up the calorie values
 				int sumCalories = 0;
+				uint sumWork = 0;
 				foreach (Lap l in laps)
 				{
 					sumCalories += l.Calories;
+					sumWork += l.Work;
 				}
 				if (rideCalories == 0)
 				{
@@ -145,6 +162,14 @@ namespace StagesCsvToFit
 				if (lastLap.Calories == 0)
 				{
 					lastLap.Calories = rideCalories - sumCalories;
+				}
+				if (rideWork == 0)
+				{
+					rideWork = sumWork;
+				}
+				if (lastLap.Work == 0)
+				{
+					lastLap.Work = rideWork - sumWork;
 				}
 
 				// remove trailing rundown records from the last lap
@@ -184,7 +209,7 @@ namespace StagesCsvToFit
 				MaxSpeedLabel.Content = sessionSummary.MaxSpeed.ToString("0.##");
 
 				// write the data to a FIT file
-				WriteFitFile(fitFileName, start, laps, rideCalories);
+				WriteFitFile(fitFileName, start, laps, rideCalories, rideWork);
 			}
 		}
 
@@ -205,7 +230,8 @@ namespace StagesCsvToFit
 		/// <param name="start">Start date/time of the activity.</param>
 		/// <param name="laps">Lap and record data to be written.</param>
 		/// <param name="calories">Calories used for the activity.</param>
-		static void WriteFitFile(string fileName, System.DateTime start, LapsList laps, int calories)
+		/// <param name="work">Work done for the activity.</param>
+		static void WriteFitFile(string fileName, System.DateTime start, LapsList laps, int calories, uint work)
 		{
 			// open the encoder and stream
 			Encode encoder = new Encode(ProtocolVersion.V20);
@@ -215,9 +241,9 @@ namespace StagesCsvToFit
 			// write the file ID message
 			FileIdMesg fileIdMsg = new FileIdMesg();
 			fileIdMsg.SetType(Dynastream.Fit.File.Activity);
-			fileIdMsg.SetManufacturer(Manufacturer.Dynastream);
-			fileIdMsg.SetProduct(22);
-			fileIdMsg.SetSerialNumber(1234);
+			fileIdMsg.SetManufacturer(Manufacturer.StagesCycling);
+			fileIdMsg.SetProduct(3);
+			fileIdMsg.SetSerialNumber(1);
 			fileIdMsg.SetTimeCreated(new Dynastream.Fit.DateTime(start));
 			encoder.Write(fileIdMsg);
 
@@ -248,6 +274,7 @@ namespace StagesCsvToFit
 				lapMsg.SetTotalTimerTime((int)time.TotalSeconds);
 				lapMsg.SetTotalDistance((float)(last.Distance - first.Distance) * 1000);
 				lapMsg.SetTotalCalories((ushort)lap.Calories);
+				lapMsg.SetTotalWork(lap.Work * 1000);
 				lapMsg.SetEvent(Event.Lap);
 				lapMsg.SetEventType(EventType.Stop);
 				lapMsg.SetIntensity(Intensity.Active);
@@ -279,6 +306,7 @@ namespace StagesCsvToFit
 			sessionMsg.SetTotalTimerTime((int)totalTime.TotalSeconds);
 			sessionMsg.SetTotalDistance((float)(lastRecord.Distance - firstRecord.Distance) * 1000);
 			sessionMsg.SetTotalCalories((ushort)calories);
+			sessionMsg.SetTotalWork(work * 1000);
 			sessionMsg.SetFirstLapIndex(0);
 			sessionMsg.SetNumLaps((ushort)laps.Count);
 			sessionMsg.SetEvent(Event.Session);
@@ -439,6 +467,7 @@ namespace StagesCsvToFit
 		{
 			public RecordsList Records = new RecordsList();
 			public int Calories = 0;
+			public uint Work = 0;
 		}
 
 		private class LapsList : List<Lap> { }
